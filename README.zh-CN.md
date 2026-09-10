@@ -29,7 +29,7 @@
 
 ## 摘要（结论）
 
-1. **手表通过 OHealth 的 `linkservice` 栈使用一套私有消息协议通信**，不走任何标准 GATT 蓝牙规范。消息单元为 `MessageEvent(serviceId, commandId, byte[])`，承载 protobuf 负载，请求/响应机制为回调式（`waitResponseMsgMap`，键 = serviceId+commandId 拼接）。
+1. **手表通过 OHealth 的 `linkservice` 栈使用一套私有消息协议通信**；**当前研究未发现**这些业务消息通过标准 GATT Profile 承载（操作系统层观察到链路为经典蓝牙 BR/EDR）。消息单元为 `MessageEvent(serviceId, commandId, byte[])`，承载 protobuf 负载，请求/响应机制为回调式（`waitResponseMsgMap`，键 = serviceId+commandId 拼接）。
 2. **约 40+ 条业务命令被还原**，含完整收发链：心率统计、运动统计、运动记录、睡眠、血氧、体重、穿戴记录、生理周期、打鼾/OSA、腕温、表盘、AGPS、文件传输等。详见 `docs/message-codes.md`。
 3. **通道对第三方 App 封锁。** OHealth 对外入口（`WearableServer`，action `com.heytap.wearable.linkservice.action.WEARABLE`）受 **signature 级权限**保护；其余候选（`IpcBtService` ×2）均未导出。`IWearableService` 存在且接口丰富，但 **“接口存在 ≠ 第三方可调”**。
 4. **广播实验未能触发手表同步。** `com.heytap.health.action_data_refresh` 会到达接收者并触发本地数据刷新（实证：`SportHealthDataAPI.readSportHealthData`），但之后没有 BLE/传输层活动。另外四个健康/睡眠广播无可观测的手表侧动作。
