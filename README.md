@@ -20,7 +20,7 @@ Research notes on the communication architecture between **OPPO Watch S (OWWE262
 
 - **Watch**: OPPO Watch S, model **OWWE262** (paired, connected, classic BT)
 - **Phone**: OPPO / ColorOS device (Android with the HealthFitness APEX module present)
-- **OHealth**: `com.heytap.health` v1.0.3 (APK analyzed: 17 dex, ~124 MB)
+- **OHealth**: `com.heytap.health` v1.0.3 (single base.apk, no splits; 17 dex; ~139 MB / 133 MiB)
 - **Tools**: baksmali (Ubuntu/proot), smali register-backtracking scripts, Shizuku shell for dynamic tests
 
 ---
@@ -128,7 +128,7 @@ See `docs/rejected-approaches.md` for the full list with evidence:
 | Direct OHealth IPC | ❌ | signature-locked |
 | Bridge APK → OHealth IPC | ❌ | same signature lock applies to any non-OPPO-signed app |
 | Custom Watch transport | ⚠️ impractical | would require re-implementing accessory/link negotiation + key material; not attempted |
-| **UI automation** (accessibility / automated taps over OHealth UI) | ✅ workable | no API attacks; operates the app's own UI |
+| **UI automation** (accessibility / automated taps over OHealth UI) | ✅ workable | indirect, UI-level only — not an API integration; drives OHealth's own screens via accessibility/taps, no protocol access |
 | **OHealth data export** (user-driven) + file ingestion | ✅ workable | offline snapshot |
 | OHealth cloud (web endpoints) | ❓ unknown | not researched |
 
