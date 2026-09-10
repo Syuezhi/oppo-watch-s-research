@@ -1,5 +1,7 @@
 # OPPO Watch S Reverse Engineering & Integration Research
 
+**English | [简体中文](README.zh-CN.md)**
+
 Research notes on the communication architecture between **OPPO Watch S (OWWE262)** and **OHealth (com.heytap.health)** — protocol recovery, IPC permission analysis, and integration-path evaluation for third-party apps.
 
 ---
